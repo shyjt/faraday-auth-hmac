@@ -6,7 +6,7 @@ require 'auth-hmac'
 module Faraday
   class Request
 
-    register_lookup_modules :auth_hmac => :AuthHMAC
+    register_middleware :auth_hmac => :AuthHMAC
 
     attr_accessor :sign_with
 
@@ -46,14 +46,14 @@ module Faraday
           request[:method].to_s.upcase
         end
         def request_body(request)
-          request[:body]
+          request[:body].to_s
         end
         def request_path(request)
-          URI.parse(request[:url]).path
+          URI.parse(request[:url].to_s).path
         end
         def request_path(request, authenticate_referrer)
           return super if authenticate_referrer
-          URI.parse(request[:url]).path
+          URI.parse(request[:url].to_s).path
         end
         def headers(request)
           request[:request_headers]
