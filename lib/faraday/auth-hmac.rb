@@ -64,7 +64,7 @@ module Faraday
         attr_accessor :keys, :options
       end
       self.keys     = {}
-      self.options  = {:service_id => "FaradayHMAC", :signature => CanonicalString}
+      self.options  = {signature: CanonicalString}
 
       def self.auth
         ::AuthHMAC.new(keys, options)
